@@ -1,0 +1,44 @@
+// scripts.js
+document.addEventListener('DOMContentLoaded', () => {
+  const taskInput = document.getElementById('taskInput');
+  const dueDateInput = document.getElementById('dueDateInput');
+  const categorySelect = document.getElementById('categorySelect');
+  const addTaskButton = document.getElementById('addTaskButton');
+  const taskList = document.getElementById('taskList');
+
+  addTaskButton.addEventListener('click', () => {
+    const taskText = taskInput.value.trim();
+    const dueDate = dueDateInput.value;
+    const category = categorySelect.value;
+
+    if (taskText !== '') {
+      const taskItem = document.createElement('li');
+      
+      const taskInfo = document.createElement('span');
+      taskInfo.textContent = `${taskText} - Due: ${dueDate} [${category}]`;
+      
+      const completeButton = document.createElement('button');
+      completeButton.textContent = 'Complete';
+      completeButton.addEventListener('click', () => {
+        taskInfo.classList.toggle('task-complete');
+      });
+
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete';
+      deleteButton.addEventListener('click', () => {
+        taskList.removeChild(taskItem);
+      });
+
+      taskItem.appendChild(taskInfo);
+      taskItem.appendChild(completeButton);
+      taskItem.appendChild(deleteButton);
+
+      taskList.appendChild(taskItem);
+
+      // Clear input fields
+      taskInput.value = '';
+      dueDateInput.value = '';
+      categorySelect.selectedIndex = 0;
+    }
+  });
+});
